@@ -1,0 +1,217 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    font-size: 62.5%;
+    font-family: 'Mulish', sans-serif;
+
+    --fc-primary: #202024;
+    --color-base-gray-100: #f5f5f5;
+    --color-base-gray-300: #8d8d99;
+    --colo-base-gray-500: #3d3d3d;
+    --color-base-white: #FFFFFF;
+}
+
+body {
+    background-color: white;
+}
+
+.app {
+    display: grid;
+    grid-template-rows: max-content 1fr max-content; /*Max-content define que o espaço deve se orienta pelo máximo de esoaço que o conteúdo ocupa*/
+
+    height: 100vh;
+}
+
+.container {
+    padding: 1.6rem 3.2rem;
+    margin: 0 auto;
+
+    width: min(112rem, 100%); /*a funça min define o menor valor disponivel entre aquelas duas medidas, nessa situação a largura sera o menor valor retornado pela função*/
+}
+
+/*HEADER*/
+
+header,
+nav,
+nav ul {
+    display: flex;
+    align-items: center;
+    gap: 7.2rem;
+
+    --startY: -100%;
+    animation: move .4s backwards;
+}
+
+nav ul {
+    list-style: none;
+
+}
+
+nav ul li {
+    transition: all 250ms ease-in-out;
+}
+
+nav ul a {
+    text-decoration: none;
+    color: var(--color-base-gray-300);
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+nav ul .active a {
+    color: var(--fc-primary)
+}
+
+nav ul li:hover {
+    transform: scale(1.045);
+}
+
+header form {
+    flex: 1;
+}
+
+header form label {
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    /*Sessão para esconder o label, label existe nesse layout apenas para a acessibilidade*/
+}
+
+header form input {
+    width: 100%;
+    padding: 1.6rem;
+
+    background-color: var(--color-base-gray-100);
+    border: none;
+    border-radius: 0.6rem;
+
+    font-size: 1.6rem;
+    font-weight: 700;
+    font-family: 'Mulish', sans-serif;
+}
+
+header form input::placeholder {
+    color: var(--colo-base-gray-500);
+    font-family: 'Mulish', sans-serif;
+    opacity: 0.56;
+}
+
+header #avatar {
+    width: 4.2rem;
+    height: 4.2rem;
+    object-fit: cover;
+
+    border-radius: 1.5rem;
+}
+
+/*MAIN*/
+
+main {
+    background-color: var(--color-base-gray-100);
+
+    overflow-y: scroll;
+}
+
+main h1 {
+    padding-top: 1.6rem;
+
+    font-size: 2.4rem;
+}
+
+main .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2.5rem 2rem;
+
+    margin-top: 3.2rem;
+}
+
+main .gallery .item {
+    overflow: hidden;
+
+    background-color: var(--color-base-white);
+    border-radius: 0.8rem;
+
+    --delay: .35s; /*A variavel para essa aplicação iremos inserir no proprío html em cada picture*/
+    animation: appear 0.4s var(--delay) backwards;
+}
+
+main .gallery .item img {
+    width: 100%;
+    object-fit: cover;
+
+    transition: all 500ms ease-out;
+}
+
+main .gallery .item img:hover {
+    filter: hue-rotate(7deg) contrast(101%) saturate(200%);
+    transform: scale(1.05) rotate(-2deg);
+}
+
+main .gallery .item .details {
+    padding: 1.5rem 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+
+    background-color: var(--color-base-white);
+    z-index: 1;
+    position: relative;
+}
+
+main .gallery .item .details h2 {
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+main .gallery .item .details span {
+    font-size: 1.2rem;
+    font-weight: 400;
+
+    background-color: var(--color-base-gray-100);
+
+    padding: .3rem;
+    border-radius: .4rem;
+
+    text-transform: uppercase;
+}
+
+/*FOOTER*/
+footer {
+    --startY: 100%; /*Variável para ser utilizada na animação, essa variável ja foi criada anteriormente mas tem seu valor atualizado */
+    animation: move 0.4s backwards ;
+}
+
+
+footer p {
+    text-align: center;
+    padding: 1.6rem;
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: #323238;
+}
+
+/*ANIMAÇÕES*/
+@keyframes move {
+    from {
+        transform: translateY(var(--startY));
+    } 
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    
+    50% {
+        transform: scale(1.2);
+    } /*Devido o aumento de escala no meio da animação e no final voltando as configurações padrões isso vai da um efeito de salto*/
+}
